@@ -10,10 +10,10 @@ Build a personal bookmarking system that resurfaces saved content through time-b
 
 Traditional bookmarking fails because:
 
--  You can't search for what you've forgotten you saved
--  Context changes over time, making old bookmarks relevant again
--  No mechanism prompts revisiting saved content
--  Duplicates are treated as errors, not signals
+- You can't search for what you've forgotten you saved
+- Context changes over time, making old bookmarks relevant again
+- No mechanism prompts revisiting saved content
+- Duplicates are treated as errors, not signals
 
 ## Proposed Solution (MVP)
 
@@ -60,9 +60,9 @@ A minimal Next.js application with:
 
 **Removed from original plan:**
 
--  ~~OpenAI Embeddings~~ - FTS5 sufficient for personal scale
--  ~~Upstash Ratelimit~~ - Unnecessary for single user
--  ~~shadcn/ui~~ - Vanilla Tailwind is enough for MVP
+- ~~OpenAI Embeddings~~ - FTS5 sufficient for personal scale
+- ~~Upstash Ratelimit~~ - Unnecessary for single user
+- ~~shadcn/ui~~ - Vanilla Tailwind is enough for MVP
 
 ### Database Schema (2 Tables)
 
@@ -119,12 +119,12 @@ END;
 
 **What changed:**
 
--  Single `bookmarks` table instead of 6 tables
--  `save_count` integer replaces `bookmark_saves` table
--  `last_reviewed_at` timestamp replaces `reviews` table
--  Removed `tags`, `bookmark_tags`, `settings` tables
--  Added proper UNIQUE constraint for duplicate detection
--  Added all three FTS5 sync triggers
+- Single `bookmarks` table instead of 6 tables
+- `save_count` integer replaces `bookmark_saves` table
+- `last_reviewed_at` timestamp replaces `reviews` table
+- Removed `tags`, `bookmark_tags`, `settings` tables
+- Added proper UNIQUE constraint for duplicate detection
+- Added all three FTS5 sync triggers
 
 ---
 
@@ -136,13 +136,13 @@ END;
 
 #### Tasks
 
--  [ ] Initialize Next.js 16 project
+- [ ] Initialize Next.js 16 project
 
    ```bash
    npx create-next-app@latest facet --typescript --tailwind --eslint --app --src-dir
    ```
 
--  [ ] Configure Turso database
+- [ ] Configure Turso database
 
    ```typescript
    // lib/db.ts
@@ -154,7 +154,7 @@ END;
    });
    ```
 
--  [ ] Set up Clerk authentication
+- [ ] Set up Clerk authentication
 
    ```typescript
    // middleware.ts
@@ -162,9 +162,9 @@ END;
    export default clerkMiddleware();
    ```
 
--  [ ] Create database schema (run SQL above)
+- [ ] Create database schema (run SQL above)
 
--  [ ] Create URL normalization function
+- [ ] Create URL normalization function
 
    ```typescript
    // lib/url.ts
@@ -199,7 +199,7 @@ END;
    }
    ```
 
--  [ ] Create bookmark Server Actions
+- [ ] Create bookmark Server Actions
 
    ```typescript
    // app/actions.ts
@@ -280,11 +280,11 @@ END;
    }
    ```
 
--  [ ] Build single-page UI with:
-   -  Add bookmark form (URL + optional note)
-   -  Review sections by time period (hardcoded: 1 week, 1 month, 3 months, older)
-   -  Search input
-   -  Bookmark cards with actions
+- [ ] Build single-page UI with:
+   - Add bookmark form (URL + optional note)
+   - Review sections by time period (hardcoded: 1 week, 1 month, 3 months, older)
+   - Search input
+   - Bookmark cards with actions
 
 #### Files to Create
 
@@ -314,12 +314,12 @@ middleware.ts
 
 #### Tasks
 
--  [ ] Create content extraction function
+- [ ] Create content extraction function
 
    ```typescript
    // lib/extract.ts
    export async function extractContent(
-      url: string
+      url: string,
    ): Promise<{ title: string; content: string; sourceType: string }> {
       const hostname = new URL(url).hostname;
       const sourceType = detectSourceType(hostname);
@@ -357,7 +357,7 @@ middleware.ts
    }
    ```
 
--  [ ] Integrate extraction into bookmark creation
+- [ ] Integrate extraction into bookmark creation
 
    ```typescript
    // Update createBookmark action
@@ -391,7 +391,7 @@ middleware.ts
    }
    ```
 
--  [ ] Create search function
+- [ ] Create search function
 
    ```typescript
    // lib/search.ts
@@ -415,7 +415,7 @@ middleware.ts
    }
    ```
 
--  [ ] Create review query function
+- [ ] Create review query function
 
    ```typescript
    // lib/review.ts
@@ -461,7 +461,7 @@ middleware.ts
    }
    ```
 
--  [ ] Add search UI to main page
+- [ ] Add search UI to main page
 
 #### Files to Create/Update
 
@@ -483,27 +483,24 @@ src/
 
 #### Tasks
 
--  [ ] Make UI responsive
+- [ ] Make UI responsive
+   - Mobile-first card layout
+   - Touch-friendly tap targets (44px minimum)
+   - Collapsible review sections on mobile
 
-   -  Mobile-first card layout
-   -  Touch-friendly tap targets (44px minimum)
-   -  Collapsible review sections on mobile
+- [ ] Add loading states
+   - Skeleton cards while loading
+   - Spinner on form submission
+   - Optimistic UI for review actions
 
--  [ ] Add loading states
+- [ ] Add error handling
+   - Form validation (valid URL check)
+   - Error toasts for failed actions
+   - Graceful fallback if extraction fails
 
-   -  Skeleton cards while loading
-   -  Spinner on form submission
-   -  Optimistic UI for review actions
+- [ ] Add "All caught up!" state when no reviews pending
 
--  [ ] Add error handling
-
-   -  Form validation (valid URL check)
-   -  Error toasts for failed actions
-   -  Graceful fallback if extraction fails
-
--  [ ] Add "All caught up!" state when no reviews pending
-
--  [ ] Add basic meta tags
+- [ ] Add basic meta tags
 
 #### Files to Update
 
@@ -580,15 +577,15 @@ These are explicitly **not** in MVP:
 
 ## Acceptance Criteria (MVP)
 
--  [ ] User can save a URL with optional note
--  [ ] Duplicate URLs increment save_count instead of creating new record
--  [ ] Landing page shows bookmarks grouped by time period
--  [ ] Multi-saved bookmarks (high save_count) appear first
--  [ ] Full-text search works across title and content
--  [ ] User can mark bookmark as reviewed (hides from review)
--  [ ] User can archive bookmark (removes from all views)
--  [ ] User can delete bookmark
--  [ ] Works on mobile
+- [ ] User can save a URL with optional note
+- [ ] Duplicate URLs increment save_count instead of creating new record
+- [ ] Landing page shows bookmarks grouped by time period
+- [ ] Multi-saved bookmarks (high save_count) appear first
+- [ ] Full-text search works across title and content
+- [ ] User can mark bookmark as reviewed (hides from review)
+- [ ] User can archive bookmark (removes from all views)
+- [ ] User can delete bookmark
+- [ ] Works on mobile
 
 ---
 
