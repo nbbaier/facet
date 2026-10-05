@@ -37,13 +37,13 @@ A minimal Next.js application with:
 │  Single Page                  │  API Route (future external)    │
 │  - / (Review + Search + Add)  │  - POST /api/bookmarks          │
 ├─────────────────────────────────────────────────────────────────┤
-│                      Server Actions                              │
+│                      Server Actions                             │
 │  - createBookmark()  - markReviewed()  - archiveBookmark()      │
 ├─────────────────────────────────────────────────────────────────┤
-│                      Inline Functions                            │
+│                      Inline Functions                           │
 │  - normalizeUrl()    - extractContent()  - searchBookmarks()    │
 ├─────────────────────────────────────────────────────────────────┤
-│                      External Services                           │
+│                      External Services                          │
 │  - Turso (SQLite + FTS5)     - Clerk Auth    - Jina Reader      │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -67,7 +67,7 @@ A minimal Next.js application with:
 ### Database Schema (2 Tables)
 
 ```sql
--- Main bookmarks table (simplified)
+-- Main bookmarks table mplified)
 CREATE TABLE bookmarks (
   id TEXT PRIMARY KEY,
   url TEXT NOT NULL,
