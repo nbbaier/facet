@@ -1,5 +1,5 @@
 import normalizeUrl from "normalize-url";
-import crypto from "crypto";
+import crypto from "node:crypto";
 
 const TRACKING_PARAMS = [
   "utm_source",

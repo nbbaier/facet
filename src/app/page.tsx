@@ -5,11 +5,7 @@ import { BookmarkForm } from "@/components/bookmark-form";
 import { ReviewSection } from "@/components/review-section";
 import { SearchInput } from "@/components/search-input";
 import { BookmarkCard } from "@/components/bookmark-card";
-import {
-  getReviewItems,
-  searchBookmarks,
-  getAllBookmarks,
-} from "@/lib/review";
+import { getReviewItems, searchBookmarks, getAllBookmarks } from "@/lib/review";
 
 interface PageProps {
   searchParams: Promise<{ q?: string }>;
@@ -17,21 +13,23 @@ interface PageProps {
 
 async function BookmarkList({ query }: { query?: string }) {
   const { userId } = await auth();
-  if (!userId) return null;
+  if (!userId) {
+    return null;
+  }
 
   if (query) {
     const bookmarks = await searchBookmarks(userId, query);
     if (bookmarks.length === 0) {
       return (
-        <p className="text-center text-zinc-500 py-8">
+        <p className="py-8 text-center text-zinc-500">
           No bookmarks found for &ldquo;{query}&rdquo;
         </p>
       );
     }
     return (
       <div className="space-y-2">
-        <p className="text-sm text-zinc-500 mb-4">
-          {bookmarks.length} result{bookmarks.length !== 1 ? "s" : ""} for
+        <p className="mb-4 text-sm text-zinc-500">
+          {bookmarks.length} result{bookmarks.length === 1 ? "" : "s"} for
           &ldquo;{query}&rdquo;
         </p>
         {bookmarks.map((bookmark) => (
@@ -49,8 +47,8 @@ async function BookmarkList({ query }: { query?: string }) {
     const allBookmarks = await getAllBookmarks(userId);
     if (allBookmarks.length === 0) {
       return (
-        <div className="text-center py-12">
-          <p className="text-zinc-400 mb-2">No bookmarks yet</p>
+        <div className="py-12 text-center">
+          <p className="mb-2 text-zinc-400">No bookmarks yet</p>
           <p className="text-sm text-zinc-500">
             Paste a URL above to save your first bookmark
           </p>
@@ -58,10 +56,10 @@ async function BookmarkList({ query }: { query?: string }) {
       );
     }
     return (
-      <div className="text-center py-12">
-        <p className="text-2xl mb-2">✨</p>
+      <div className="py-12 text-center">
+        <p className="mb-2 text-2xl">✨</p>
         <p className="text-zinc-400">All caught up!</p>
-        <p className="text-sm text-zinc-500 mt-1">
+        <p className="mt-1 text-sm text-zinc-500">
           No bookmarks need review right now
         </p>
       </div>
@@ -83,7 +81,7 @@ function LoadingState() {
       {[1, 2, 3].map((i) => (
         <div
           key={i}
-          className="h-24 bg-zinc-900 rounded-lg animate-pulse border border-zinc-800"
+          className="h-24 animate-pulse rounded-lg border border-zinc-800 bg-zinc-900"
         />
       ))}
     </div>
@@ -96,14 +94,14 @@ export default async function Home({ searchParams }: PageProps) {
 
   if (!userId) {
     return (
-      <div className="text-center py-16">
-        <h2 className="text-2xl font-bold mb-4">Welcome to Facet</h2>
-        <p className="text-zinc-400 mb-6 max-w-md mx-auto">
+      <div className="py-16 text-center">
+        <h2 className="mb-4 text-2xl font-bold">Welcome to Facet</h2>
+        <p className="mx-auto mb-6 max-w-md text-zinc-400">
           A personal bookmarking system that resurfaces your saved content
           through time-based review.
         </p>
         <SignInButton mode="modal">
-          <button className="px-6 py-3 bg-white text-black font-medium rounded-lg hover:bg-zinc-200 transition-colors">
+          <button className="rounded-lg bg-white px-6 py-3 font-medium text-black transition-colors hover:bg-zinc-200">
             Get started
           </button>
         </SignInButton>

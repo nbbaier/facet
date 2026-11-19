@@ -10,14 +10,18 @@ interface BookmarkCardProps {
 
 function getSourceIcon(sourceType: string | null) {
   switch (sourceType) {
-    case "twitter":
+    case "twitter": {
       return "𝕏";
-    case "github":
+    }
+    case "github": {
       return "⌘";
-    case "video":
+    }
+    case "video": {
       return "▶";
-    default:
+    }
+    default: {
       return "◉";
+    }
   }
 }
 
@@ -28,11 +32,21 @@ function formatDate(timestamp: number) {
     (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)
   );
 
-  if (diffDays === 0) return "Today";
-  if (diffDays === 1) return "Yesterday";
-  if (diffDays < 7) return `${diffDays}d ago`;
-  if (diffDays < 30) return `${Math.floor(diffDays / 7)}w ago`;
-  if (diffDays < 365) return `${Math.floor(diffDays / 30)}mo ago`;
+  if (diffDays === 0) {
+    return "Today";
+  }
+  if (diffDays === 1) {
+    return "Yesterday";
+  }
+  if (diffDays < 7) {
+    return `${diffDays}d ago`;
+  }
+  if (diffDays < 30) {
+    return `${Math.floor(diffDays / 7)}w ago`;
+  }
+  if (diffDays < 365) {
+    return `${Math.floor(diffDays / 30)}mo ago`;
+  }
   return `${Math.floor(diffDays / 365)}y ago`;
 }
 
@@ -69,24 +83,24 @@ export function BookmarkCard({ bookmark }: BookmarkCardProps) {
 
   return (
     <div
-      className={`group p-4 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-zinc-700 transition-colors ${isPending ? "opacity-50" : ""}`}
+      className={`group rounded-lg border border-zinc-800 bg-zinc-900 p-4 transition-colors hover:border-zinc-700 ${isPending ? "opacity-50" : ""}`}
     >
       <div className="flex items-start gap-3">
         <span className="text-lg" title={bookmark.source_type || "article"}>
           {getSourceIcon(bookmark.source_type)}
         </span>
 
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0 flex-1">
           <a
             href={bookmark.url}
             target="_blank"
             rel="noopener noreferrer"
             className="block"
           >
-            <h3 className="text-white font-medium truncate hover:text-zinc-300">
+            <h3 className="truncate font-medium text-white hover:text-zinc-300">
               {bookmark.title || getDomain(bookmark.url)}
             </h3>
-            <p className="text-sm text-zinc-500 truncate">
+            <p className="truncate text-sm text-zinc-500">
               {getDomain(bookmark.url)}
             </p>
           </a>
@@ -100,7 +114,7 @@ export function BookmarkCard({ bookmark }: BookmarkCardProps) {
           <div className="mt-2 flex items-center gap-3 text-xs text-zinc-500">
             <span>{formatDate(bookmark.saved_at)}</span>
             {bookmark.save_count > 1 && (
-              <span className="px-1.5 py-0.5 bg-yellow-500/20 text-yellow-400 rounded">
+              <span className="rounded bg-yellow-500/20 px-1.5 py-0.5 text-yellow-400">
                 ×{bookmark.save_count}
               </span>
             )}
@@ -108,25 +122,25 @@ export function BookmarkCard({ bookmark }: BookmarkCardProps) {
         </div>
       </div>
 
-      <div className="mt-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="mt-3 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
         <button
           onClick={handleReviewed}
           disabled={isPending}
-          className="px-3 py-1 text-xs bg-zinc-800 text-zinc-300 rounded hover:bg-zinc-700 transition-colors disabled:opacity-50"
+          className="rounded bg-zinc-800 px-3 py-1 text-xs text-zinc-300 transition-colors hover:bg-zinc-700 disabled:opacity-50"
         >
           Reviewed
         </button>
         <button
           onClick={handleArchive}
           disabled={isPending}
-          className="px-3 py-1 text-xs bg-zinc-800 text-zinc-300 rounded hover:bg-zinc-700 transition-colors disabled:opacity-50"
+          className="rounded bg-zinc-800 px-3 py-1 text-xs text-zinc-300 transition-colors hover:bg-zinc-700 disabled:opacity-50"
         >
           Archive
         </button>
         <button
           onClick={handleDelete}
           disabled={isPending}
-          className="px-3 py-1 text-xs bg-zinc-800 text-red-400 rounded hover:bg-zinc-700 transition-colors disabled:opacity-50"
+          className="rounded bg-zinc-800 px-3 py-1 text-xs text-red-400 transition-colors hover:bg-zinc-700 disabled:opacity-50"
         >
           Delete
         </button>

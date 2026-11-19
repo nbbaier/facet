@@ -52,7 +52,7 @@ export function BookmarkForm() {
           name="url"
           placeholder="Paste a URL to save..."
           required
-          className="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-700 focus:border-transparent"
+          className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 text-white placeholder-zinc-500 focus:border-transparent focus:ring-2 focus:ring-zinc-700 focus:outline-none"
         />
       </div>
       <div className="flex gap-3">
@@ -60,12 +60,12 @@ export function BookmarkForm() {
           type="text"
           name="note"
           placeholder="Add a note (optional)"
-          className="flex-1 px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-700 focus:border-transparent text-sm"
+          className="flex-1 rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-2 text-sm text-white placeholder-zinc-500 focus:border-transparent focus:ring-2 focus:ring-zinc-700 focus:outline-none"
         />
         <button
           type="submit"
           disabled={isPending}
-          className="px-6 py-2 bg-white text-black font-medium rounded-lg hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="rounded-lg bg-white px-6 py-2 font-medium text-black transition-colors hover:bg-zinc-200 focus:ring-2 focus:ring-zinc-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isPending ? "Saving..." : "Save"}
         </button>
