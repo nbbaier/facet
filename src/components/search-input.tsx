@@ -10,7 +10,7 @@ export function SearchInput() {
 
   const handleSearch = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
+      const { value } = e.target;
 
       startTransition(() => {
         if (value) {
@@ -30,11 +30,11 @@ export function SearchInput() {
         placeholder="Search bookmarks..."
         defaultValue={searchParams.get("q") ?? ""}
         onChange={handleSearch}
-        className="w-full px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-700 focus:border-transparent"
+        className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-2 text-white placeholder-zinc-500 focus:border-transparent focus:ring-2 focus:ring-zinc-700 focus:outline-none"
       />
       {isPending && (
-        <div className="absolute right-3 top-1/2 -translate-y-1/2">
-          <div className="w-4 h-4 border-2 border-zinc-600 border-t-zinc-300 rounded-full animate-spin" />
+        <div className="absolute top-1/2 right-3 -translate-y-1/2">
+          <div className="h-4 w-4 animate-spin rounded-full border-2 border-zinc-600 border-t-zinc-300" />
         </div>
       )}
     </div>
